@@ -5,8 +5,9 @@
 </head>
 <body ng-app="redditgam"
 ng-controller="mainCtrl">
-<div ng-repeat="post in posts">
-	{{post}}
+<div ng-repeat="post in posts | orderBy: '-upvotes'">
+
+	{{post.title}} - Likes: {{post.upvotes}}
 </div>
 
 

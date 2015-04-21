@@ -6,10 +6,12 @@ var modulo1 =
 		function($scope) {
 			$scope.test = "Hola Angular";
 			$scope.posts = 
-			["Post 1 Hola", 
-			"Post 2", 
-			"Post 3", 
-			"Post 4",
-			"Post 5",
-			"Post 6"];
+			[ 
+			{title: "Post 1", upvotes: 5},
+			{title: "Post 2", upvotes: 10},
+			{title: "Post 3", upvotes: 15},
+			{title: "Post 4", upvotes: 36},
+			{title: "Post 5", upvotes: 2},
+			{title: "Post 6", upvotes: 12}];
+
 		}]);
