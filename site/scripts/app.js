@@ -16,8 +16,19 @@ var modulo1 =
 
 //Metodo del controlador
 						$scope.addPost = function(){ 
+							if (!$scope.title || $scope.title === "") 
+							{
+								alert ("No se permite postear titulos vacios")
+									return;
+							}
 							$scope.posts.push(
-						{title: "Nuevo Post",upvotes: 0});
+						{
+							title: $scope.title,
+							upvotes:0
+						});
+
+							//Two-way data binding
+							$scope.title = "";
 		};
 
 		}]);
