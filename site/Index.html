@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title></title>
 </head>
 <body ng-app="redditgam"
 ng-controller="mainCtrl">
+<button ng-click="addPost()">Postear</button>
 <div ng-repeat="post in posts | orderBy: '-upvotes'">
 
-	{{post.title}} - Likes: {{post.upvotes}}
+	{{post.title}} -Likes: {{post.upvotes}}
 </div>
-
-
-
 
 <!-- cargando librerias	-->
 <!-- cargar scripts	-->
@@ -19,14 +18,14 @@ ng-controller="mainCtrl">
 
 <script 
 type="text/javascript"
-src="./vendor/angular/angular.js
+src="vendor/angular/angular.js
 ">
 </script>
 
 <!-- cargar app.js	-->
 <script 
 type="text/javascript"
-src="./scripts/app.js"></script>
+src="scripts/app.js"></script>
 
 </body>
 </html>

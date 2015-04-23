@@ -14,4 +14,10 @@ var modulo1 =
 			{title: "Post 5", upvotes: 2},
 			{title: "Post 6", upvotes: 12}];
 
+//Metodo del controlador
+						$scope.addPost = function(){ 
+							$scope.posts.push(
+						{title: "Nuevo Post",upvotes: 0});
+		};
+
 		}]);
