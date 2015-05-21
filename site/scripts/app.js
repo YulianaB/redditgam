@@ -1,8 +1,8 @@
-console.log("#IvanR: Cargo app.js");
+console.log("#Julia: Cargo app.js");
 //inyectando  el modulo ui-router
 //con parametro de arreglo  del modulo de objeto 
 var modulo1 = 
-	angular.module("reeditgam",['ui.router']);
+	angular.module("reeditgam",['ui.router','hSweetAlert']);
 	//configurando las rutas
 	//recibe un arreglo  de elementos 
 
@@ -10,15 +10,21 @@ var modulo1 =
 		['$stateProvider',
 		'$urlRouterProvider',
 function($stateProvider, $urlRouterProvider){
-	//iniciando rutina de configuracion 
-	//crando ruta home
+	
+//creando ruta home
 $stateProvider.state('home', {
 	//definiendo estado  como un objeto
 	url:"/home",   //url que define el estado
 	templateUrl: "/home.html", //plantilla base para el estado
-	controller: 'mainCtrl'
+	controller: "mainCtrl"
 });
 
+	//iniciando rutina de visualizacion del Post
+$stateProvider.state('posts', {
+url: "/posts/{id}",
+templateUrl: "/posts.html",
+controller: "postsCtrl"	
+});
 
 //url por defecto
 $urlRouterProvider.otherwise('home');
@@ -54,8 +60,8 @@ modulo1.factory('posts',[function(){
 // Creando controlador	
 // dependcy injection
 modulo1.controller("mainCtrl",[
-	'$scope','posts', // Inyectando factory post
-	function($scope, posts){
+	'$scope','posts', 'sweet',// Inyectando factory post......Agregar 'sweet'
+	function($scope, posts, sweet){ // agregar el parametro sweet
 		$scope.test = "Hola Angular";
 		
 		// Modelo al cual se le asigna
@@ -66,14 +72,25 @@ modulo1.controller("mainCtrl",[
 		 $scope.addPost = function(){
 		 	if(!$scope.title || $scope.title === "")
 		 	{
-		 		alert("No se permite postear titulos vacios");
+		 		swal("No se permite postear titulos vacios", "Inserta un titulo", "error");
+		 		//comentar alert alert("No se permite postear titulos vacios", "error");
 		 		return;
 		 	}
 		 	$scope.posts.push(
 		 		{
 		 			title: $scope.title,
 		 			link: $scope.link,
-		 		 	upvotes: 0
+		 		 	upvotes: 0,
+		 		 	//arreglo de comentarios
+		 		 	comments: [{ 
+		 		 		author : "Gustavo",
+		 		 		body: "Me gusta ese link",
+		 		 		upvotes: 0},
+		 		 		{
+		 		 			author: "Keila",
+		 		 			body: "Awesome link",
+		 		 			upvotes: 2
+		 		 		}]
 		 		 });
 		 	// Two-way data binding
 		 	$scope.title = "";
@@ -87,3 +104,17 @@ modulo1.controller("mainCtrl",[
 	}]);
 
 //Crando controlador postCtrl
+modulo1.controller("postsCtrl",[
+'$scope',
+'$stateParams',
+'posts',
+ function($scope, $stateParams, posts){
+ 	$scope.incrementUpvotes = function (comment) {
+ 		comment.upvotes += 1;
+ 	};
+	//cuerpo del controlador
+	//obteniendo el parametro id de los parametros
+	//del estado de la ruta y pasando como argumentos
+	//al objeto del factory
+	$scope.post = posts.posts[$stateParams.id];
+}]);

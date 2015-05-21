@@ -8,6 +8,9 @@
   <style>
     .glyphicon-thumbs-up {cursor: pointer;}
   </style>
+
+  <link rel="stylesheet"
+  href="./vendor/ngsweetalert/css/sweet-alert.css"> 
 </head>
 <body ng-app="reeditgam" 
   ng-controller="mainCtrl">
@@ -16,7 +19,6 @@
       <ui-view></ui-view>
     </div>
   </div>
-  
   <!-- Creando plantillas -->
   <!-- Plantilla /home.html -->
   <script 
@@ -40,7 +42,7 @@
         <div class="form-group">  
           <input
             class="form-control"
-            placeholder="Link" 
+            placeholder="link" 
             type="text" 
             ng-model="link">
         </div>
@@ -63,12 +65,40 @@
             {{post.title}}
           </span>
         </span>
+        <span>
+        <a href="#/posts/{{$index}}">
+        Comentarios.
+        </span>
       </div>
+  </script>
+
+  <!--Creando la plantilla Posts.html -->
+  <script 
+  type="text/ng-template"
+  id="/posts.html">
+<div class="page-header">
+  <h3>
+      <a ng-show="post.link"
+      href="{{post.link}}"></a>
+      <span
+        ng-hide="post.link"
+        {{post.title}}>
+      </span>
+  </h3>
+</div>
+<div
+  ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+  <span class="glyphicon glyphicon-thumbs-up"></span>
+  {{comment.upvotes}} - por {{comment.author}}
+  <span style="font-size:20px; margin-left:10px">
+  {{comment.body}}
+  </span>
+</div>
   </script>
   
   <!-- Cargando Librerias -->
-  <!-- Es buena practica al final -->
-  <!-- cargar los scrips -->
+  <!-- Es buena practica cargar los scrips al final -->
+  
   <!-- Cargando Jquery -->
   <script
     src="./vendor/jquery/jquery.js">
@@ -77,16 +107,30 @@
   <script
     src="./vendor/bootstrap/js/bootstrap.js">
     </script>
+
+    <!-- Cargando sweet alert -->
+  <script 
+    src="./vendor/ngsweetalert/js/sweet-alert.min.js"></script>
+    
+
   <!-- Cargando a Angular -->
   <script 
     type="text/javascript"
     src="./vendor/angular/angular.js">
     </script>
+
   <!-- Cargando angular-ui-router -->
   <script 
     type="text/javascript"
     src="./vendor/angular-ui-router/angular-ui-router.js">
     </script>
+
+    <!-- Se carga ngSweetAlert -->
+  <script 
+    src="./vendor/ngsweetalert/js/ngSweetAlert.js">
+    </script>
+    
+
   <!-- Cargando app.js -->
   <script
     type="text/javascript"
